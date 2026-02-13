@@ -7,7 +7,7 @@
  */
 
 // Disable Right Click
-document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault()); // Remove right-click block for better UX
 
 // Indian States List
 const states = [
@@ -38,6 +38,14 @@ function formatCurrency(amount) {
         currency: 'INR',
         minimumFractionDigits: 2
     }).format(amount);
+}
+
+// Format date as DD/MM/YYYY
+function formatDateDMY(dateString) {
+    if (!dateString) return "-";
+
+    const [year, month, day] = dateString.split("-");
+    return `${day}/${month}/${year}`;
 }
 
 // Number to Words (Indian Numbering System)
@@ -147,7 +155,16 @@ function updatePreview() {
         const input = document.getElementById(inputId);
         const preview = document.getElementById(previewId);
         if (input && preview) {
-            preview.textContent = input.value || (input.getAttribute('placeholder') !== 'street' ? input.getAttribute('placeholder') : '-');
+            if (inputId === 'invoiceDate' || inputId === 'dueDate') {
+    preview.textContent = formatDateDMY(input.value);
+} else {
+    preview.textContent =
+        input.value ||
+        (input.getAttribute('placeholder') !== 'street'
+            ? input.getAttribute('placeholder')
+            : '-');
+}
+
             if (inputId === 'companyName') document.getElementById('p-companyName-sig').textContent = input.value || 'Your Company';
 
             // Company GST Visibility in Preview
@@ -361,3 +378,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('invoice-form').addEventListener('input', updatePreview);
     document.getElementById('invoice-form').addEventListener('change', updatePreview);
 });
+
