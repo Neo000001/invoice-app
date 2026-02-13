@@ -87,10 +87,13 @@ body {
     overflow-x: hidden;
 }
 
+/* Mobile & Tablet Layout optimization */
 @media (max-width: 900px) {
     .app-container {
-        /* On very small screens/mobiles, stack customized */
+        /* Stack everything on mobile/tablet */
         grid-template-columns: 1fr;
+        padding: 0.5rem;
+        /* Less padding on mobile */
     }
 
     .ad-sidebar {
@@ -104,10 +107,10 @@ body {
 
     /* Mobile Scaling for A4 Preview */
     .a4-page {
-        transform: scale(0.45);
+        /* Start with a moderate scale for tablets */
+        transform: scale(0.6);
         transform-origin: top center;
-        /* Center scaling */
-        margin-bottom: -160mm;
+        margin-bottom: -100mm;
         width: 210mm;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
@@ -119,18 +122,117 @@ body {
         justify-content: center;
         background: #f3f4f6;
         padding-bottom: 1rem;
-    }
-
-    /* On very small screens, scale even more */
-    @media (max-width: 480px) {
-        .a4-page {
-            transform: scale(0.35);
-            margin-bottom: -190mm;
-        }
+        /* Ensure preview panel has enough height context */
+        min-height: 400px;
     }
 }
 
-/* Force 3-column layout on standard Laptops and Tablets (Landscape) */
+/* Specific Mobile Optimization (< 480px) */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 5px !important;
+        overflow-x: hidden;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Order: Preview (Top) -> Editor (Middle) -> Ads (Bottom) */
+    .preview-panel {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+
+    .editor-panel {
+        order: 1;
+        padding: 1rem 0.5rem;
+        /* Maximize usable width */
+    }
+
+    .ad-sidebar,
+    .ad-banner {
+        order: 2;
+    }
+
+    /* A4 Page - Large View */
+    .a4-page {
+        /* Maximize size: 0.46 * 794px = ~365px. */
+        /* If screen is 360px, it scrolls slightly. User wants READABILITY. */
+        transform: scale(0.46);
+        transform-origin: top center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -155mm;
+        /* Less negative margin since page is taller */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .preview-panel {
+        order: -1;
+        margin-bottom: 0.5rem;
+        background: transparent;
+        overflow-x: auto;
+        /* Allow horizontal scroll for the PREVIEW ONLY if needed */
+        min-height: 480px;
+        /* Give it space */
+        padding-bottom: 20px;
+        display: block;
+        /* Let it flow naturally */
+        text-align: center;
+        /* Center the scaled element */
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        font-size: 16px;
+        /* Prevent zoom on iOS input focus */
+    }
+
+    /* Ads safe mode */
+    .ad-banner,
+    .ad-sidebar {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Mobile Form Optimization: Force Single Column */
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem;
+    }
+
+    .input-group label {
+        font-size: 1rem;
+        /* Readable text */
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        padding: 0.8rem;
+        /* Larger touch area */
+        font-size: 16px;
+    }
+
+    /* Items Table: Scrollable on mobile */
+    .items-table-container {
+        overflow-x: auto;
+        display: block;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1rem;
+    }
+
+    #items-table-editor {
+        min-width: 600px;
+        /* Ensure table doesn't squish */
+    }
+}
+
+
 /* Force 3-column layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
     .app-container {
@@ -141,7 +243,7 @@ body {
     }
 
     .a4-page {
-        /* Slightly larger preview */
+        /* Slightly larger preview for laptop */
         transform: scale(0.65);
         transform-origin: top left;
         margin-bottom: -100mm;
@@ -653,6 +755,7 @@ footer {
     text-decoration: underline;
 
 }
+
 /* SEO Content Section (AdSense Approval Boost) */
 .seo-content {
     max-width: 1000px;
@@ -660,7 +763,7 @@ footer {
     background: var(--white);
     padding: 24px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .seo-content h2,
