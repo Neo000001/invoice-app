@@ -782,13 +782,20 @@ footer {
     padding-left: 1.2rem;
     color: #4b5563;
 }
-/* ===== REAL MULTI PAGE PRINT FIX ===== */
+/* ===== FINAL PROFESSIONAL PRINT SETTINGS ===== */
 @media print {
 
-    body {
-        background: white !important;
+    /* A4 Page Setup */
+    @page {
+        size: A4;
+        margin: 12mm;
     }
 
+    body {
+        background: #fff !important;
+    }
+
+    /* Hide UI elements in PDF */
     .site-header,
     .editor-panel,
     .preview-header,
@@ -801,31 +808,30 @@ footer {
 
     .app-container {
         display: block !important;
-        padding: 0 !important;
         margin: 0 !important;
+        padding: 0 !important;
     }
 
     .preview-panel {
-        position: static !important;
         width: 100% !important;
+        position: static !important;
         overflow: visible !important;
     }
 
-    /* ⭐ MOST IMPORTANT FIX */
+    /* ⭐ MOST IMPORTANT — allow auto pages */
     .a4-page {
         transform: none !important;
         width: auto !important;
-        min-height: auto !important;
         height: auto !important;
+        min-height: auto !important;
         max-height: none !important;
         margin: 0 !important;
         padding: 10mm 15mm !important;
         box-shadow: none !important;
-        page-break-after: auto;
         overflow: visible !important;
     }
 
-    /* Allow table to break across pages */
+    /* Auto page breaks for table */
     .pdf-table {
         page-break-inside: auto;
     }
@@ -835,10 +841,30 @@ footer {
         break-inside: avoid;
     }
 
+    /* Repeat table header on each page */
+    .pdf-table thead {
+        display: table-header-group;
+    }
+
+    /* Prevent totals/footer split */
+    .pdf-totals,
     .pdf-footer {
         page-break-inside: avoid;
     }
+
+    /* Professional spacing */
+    .pdf-table td,
+    .pdf-table th {
+        padding: 6px 8px;
+    }
+
+    /* Automatic page number */
+    body::after {
+        content: "Page " counter(page);
+        position: fixed;
+        bottom: 5mm;
+        right: 10mm;
+        font-size: 11px;
+        color: #666;
+    }
 }
-
-
-
