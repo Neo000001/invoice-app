@@ -762,7 +762,7 @@ body {
 /* Value (INV-001) */
 .pdf-invoice-meta table td:last-child {
     font-weight: 600;
-    color: #111827;
+    color: #4b5563;    /* softer professional grey */
     text-align: left;
     /* Ensure text starts right after gap */
     min-width: 90px;
@@ -1071,3 +1071,4 @@ footer {
     padding-left: 1.2rem;
     color: #4b5563;
 }
+
