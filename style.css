@@ -156,14 +156,11 @@ body {
 
     /* A4 Page - Large View */
     .a4-page {
-        /* Maximize size: 0.46 * 794px = ~365px. */
-        /* If screen is 360px, it scrolls slightly. User wants READABILITY. */
         transform: scale(0.46);
         transform-origin: top center;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: -155mm;
-        /* Less negative margin since page is taller */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -172,24 +169,18 @@ body {
         margin-bottom: 0.5rem;
         background: transparent;
         overflow-x: auto;
-        /* Allow horizontal scroll for the PREVIEW ONLY if needed */
         min-height: 480px;
-        /* Give it space */
         padding-bottom: 20px;
         display: block;
-        /* Let it flow naturally */
         text-align: center;
-        /* Center the scaled element */
     }
 
     .input-group input,
     .input-group select,
     .input-group textarea {
         font-size: 16px;
-        /* Prevent zoom on iOS input focus */
     }
 
-    /* Ads safe mode */
     .ad-banner,
     .ad-sidebar {
         width: 100%;
@@ -197,7 +188,6 @@ body {
         box-sizing: border-box;
     }
 
-    /* Mobile Form Optimization: Force Single Column */
     .grid-2,
     .grid-3 {
         grid-template-columns: 1fr !important;
@@ -206,18 +196,15 @@ body {
 
     .input-group label {
         font-size: 1rem;
-        /* Readable text */
     }
 
     .input-group input,
     .input-group select,
     .input-group textarea {
         padding: 0.8rem;
-        /* Larger touch area */
         font-size: 16px;
     }
 
-    /* Items Table: Scrollable on mobile */
     .items-table-container {
         overflow-x: auto;
         display: block;
@@ -228,36 +215,28 @@ body {
 
     #items-table-editor {
         min-width: 600px;
-        /* Ensure table doesn't squish */
     }
 }
 
-
-/* Force 3-column layout on standard Laptops and Tablets (Landscape) */
+/* Desktop */
 @media (min-width: 901px) {
     .app-container {
-        /* Squeeze columns: Editor | scaled Preview | Ad */
         grid-template-columns: 1fr auto 240px;
-        /* Reduced sidebar width */
         gap: 1rem;
     }
 
     .a4-page {
-        /* Slightly larger preview for laptop */
         transform: scale(0.65);
         transform-origin: top left;
         margin-bottom: -100mm;
         width: 210mm;
     }
 
-    /* Wrapper for preview to constrain its width in the grid */
     .preview-panel {
         width: 140mm;
-        /* Approx width after 0.65 scale */
         overflow: hidden;
     }
 
-    /* Adjust sidebar ad container in this view */
     .ad-sidebar {
         width: 100%;
         max-width: 240px;
@@ -279,7 +258,6 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100px;
-    /* Leaderboard height approx */
     border-radius: 8px;
 }
 
@@ -293,7 +271,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 600px;
-    /* Skyscraper height */
     position: sticky;
     top: 1rem;
     border-radius: 8px;
@@ -308,168 +285,9 @@ body {
     height: fit-content;
 }
 
-.editor-panel h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-}
-
-.form-section {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.form-section h3 {
-    font-size: 1rem;
-    color: var(--text-light);
-    margin-bottom: 0;
-    /* Changed from 1rem */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.checkbox-wrapper input {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.input-group {
-    margin-bottom: 1rem;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 0.4rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.input-group input,
-.input-group select,
-.input-group textarea {
-    width: 100%;
-    padding: 0.6rem;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: border-color 0.15s;
-    resize: vertical;
-    /* Allow vertical resize for textarea */
-}
-
-.input-group input:focus,
-.input-group select:focus,
-.input-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-}
-
-/* Items Table Editor */
-#items-table-editor {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-}
-
-#items-table-editor th {
-    text-align: left;
-    padding: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-light);
-    border-bottom: 2px solid var(--border-color);
-}
-
-#items-table-editor td {
-    padding-top: 0.5rem;
-}
-
-#items-table-editor input {
-    padding: 0.4rem;
-}
-
-.btn-add-row {
-    color: var(--primary-color);
-    background: none;
-    border: 1px dashed var(--primary-color);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    width: 100%;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.btn-add-row:hover {
-    background: #eff6ff;
-}
-
-.btn-remove {
-    color: var(--danger-color);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0 0.5rem;
-}
-
-/* Preview Panel */
 .preview-panel {
     position: sticky;
     top: 1rem;
-}
-
-.preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.btn-download {
-    background: var(--primary-color);
-    color: var(--white);
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
-    transition: transform 0.1s;
-}
-
-.btn-download:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
 }
 
 /* A4 Page */
@@ -479,313 +297,32 @@ body {
     min-height: 297mm;
     margin: 0 auto;
     padding: 10mm 15mm;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     color: #333;
     display: flex;
     flex-direction: column;
-
-    /* Default is no transform, media query handles scaling */
-    transform-origin: top left;
 }
 
-
-/* PDF Styles */
-.pdf-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 1rem;
-    align-items: flex-start;
-    /* Ensure top alignment */
-}
-
-.pdf-company-info {
-    max-width: 60%;
-}
-
-.pdf-company-info h1 {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-}
-
-.pdf-invoice-meta {
-    text-align: right;
-}
-
-.pdf-invoice-meta h2 {
-    font-size: 1.2rem;
-    text-align: right;
-    color: #bbb;
-    margin-bottom: 0.5rem;
-}
-
-.pdf-invoice-meta table td {
-    padding: 2px 5px;
-    text-align: right;
-}
-
-.pdf-invoice-meta table td:first-child {
-    font-weight: 600;
-    color: #666;
-}
-
-.pdf-bill-to {
-    margin-bottom: 2rem;
-}
-
-.pdf-bill-to h3 {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    color: #666;
-    margin-bottom: 0.4rem;
-}
-
-.pdf-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
-}
-
-.pdf-table th {
-    background: #f9fafb;
-    padding: 8px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 0.85rem;
-    border-bottom: 1px solid #ddd;
-}
-
-.pdf-table td {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.pdf-totals {
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto;
-    padding-top: 1rem;
-}
-
-.amount-in-words {
-    width: 50%;
-    font-size: 0.85rem;
-    color: #666;
-}
-
-.totals-breakdown {
-    width: 40%;
-}
-
-.totals-breakdown .row {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-}
-
-.totals-breakdown .total-row {
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-top: 1px solid #000;
-    margin-top: 8px;
-    padding-top: 8px;
-}
-
-.pdf-footer {
-    margin-top: 3rem;
-    text-align: right;
-}
-
-.signature-box {
-    display: inline-block;
-    text-align: center;
-}
-
-.sig-space {
-    height: 60px;
-    border-bottom: 1px solid #000;
-    margin-bottom: 5px;
-}
-
-/* Ad Banner */
-.ad-banner {
-    max-width: 1400px;
-    margin: 1rem auto;
-    background: #e5e7eb;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 0.9rem;
-    border-radius: 4px;
-}
-
+/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
     color: var(--text-light);
-    margin-bottom: 2rem;
 }
 
-.footer-nav {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.footer-link {
-    color: var(--text-light);
-    text-decoration: none;
-    transition: color 0.2s;
-    font-weight: 500;
-}
-
-.footer-link:hover {
-    color: var(--primary-color);
-}
-
-.brand-link {
-    text-decoration: none;
-    font-weight: 800;
-    color: var(--primary-color);
-    position: relative;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
-
-
-    /* Glassy Effect */
-    background: rgba(59, 130, 246, 0.1);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-
-    /* Glow/Animation */
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.brand-link:hover {
-    color: #2563eb;
-    background: rgba(59, 130, 246, 0.2);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), 0 0 5px rgba(59, 130, 246, 0.2);
-    transform: translateY(-2px);
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
-}
-
-/* Glass/Gradient Text for Brand */
-.brand-glass {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0 4px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    filter: drop-shadow(0 0 2px rgba(37, 99, 235, 0.3));
-}
-
-.brand-glass:hover {
-    filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.6));
-    transform: scale(1.05);
-}
-
-/* Static Page Content */
-.static-page-content {
-    /* Seamless Layout */
-    background: transparent;
-    padding: 0 1rem;
-    max-width: 1000px;
-    margin: 4rem auto;
-    text-align: left;
-}
-
-@media (max-width: 768px) {
-    .static-page-content {
-        margin: 2rem auto;
-    }
-}
-
-.static-page-content h1 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-}
-
-.static-page-content p {
-    margin-bottom: 1rem;
-    color: #4b5563;
-    line-height: 1.6;
-}
-
-.static-page-content h2 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #1f2937;
-}
-
-.static-page-content ul {
-    text-align: left;
-    display: inline-block;
-    margin: 1rem 0;
-    color: #4b5563;
-}
-
-.text-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.text-link:hover {
-    text-decoration: underline;
-
-}
-
-/* SEO Content Section (AdSense Approval Boost) */
+/* SEO Content */
 .seo-content {
     max-width: 1000px;
     margin: 40px auto;
     background: var(--white);
     padding: 24px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.seo-content h2,
-.seo-content h3 {
-    margin-bottom: 0.8rem;
-    color: #111827;
-}
-
-.seo-content p {
-    margin-bottom: 1rem;
-    color: #4b5563;
-    line-height: 1.7;
-}
-
-.seo-content ul {
-    padding-left: 1.2rem;
-    color: #4b5563;
-}
 /* ===== FINAL PROFESSIONAL PRINT SETTINGS ===== */
 @media print {
 
-    /* A4 Page Setup */
     @page {
         size: A4;
         margin: 12mm;
@@ -795,7 +332,6 @@ footer {
         background: #fff !important;
     }
 
-    /* Hide UI elements in PDF */
     .site-header,
     .editor-panel,
     .preview-header,
@@ -818,8 +354,9 @@ footer {
         overflow: visible !important;
     }
 
-    /* ⭐ MOST IMPORTANT — allow auto pages */
+    /* ⭐ ONLY REAL FIX ADDED HERE */
     .a4-page {
+        display: block !important;   /* <<< THIS FIXES MULTI PAGE */
         transform: none !important;
         width: auto !important;
         height: auto !important;
@@ -831,7 +368,6 @@ footer {
         overflow: visible !important;
     }
 
-    /* Auto page breaks for table */
     .pdf-table {
         page-break-inside: auto;
     }
@@ -841,24 +377,15 @@ footer {
         break-inside: avoid;
     }
 
-    /* Repeat table header on each page */
     .pdf-table thead {
         display: table-header-group;
     }
 
-    /* Prevent totals/footer split */
     .pdf-totals,
     .pdf-footer {
         page-break-inside: avoid;
     }
 
-    /* Professional spacing */
-    .pdf-table td,
-    .pdf-table th {
-        padding: 6px 8px;
-    }
-
-    /* Automatic page number */
     body::after {
         content: "Page " counter(page);
         position: fixed;
