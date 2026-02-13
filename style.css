@@ -782,14 +782,13 @@ footer {
     padding-left: 1.2rem;
     color: #4b5563;
 }
-/* ===== PRINT FIX FOR MULTI PAGE PDF ===== */
+/* ===== REAL MULTI PAGE PRINT FIX ===== */
 @media print {
 
     body {
         background: white !important;
     }
 
-    /* Hide everything except invoice */
     .site-header,
     .editor-panel,
     .preview-header,
@@ -812,28 +811,34 @@ footer {
         overflow: visible !important;
     }
 
+    /* ⭐ MOST IMPORTANT FIX */
     .a4-page {
-        transform: none !important;   /* VERY IMPORTANT */
-        width: 210mm !important;
+        transform: none !important;
+        width: auto !important;
         min-height: auto !important;
-        margin: 0 auto !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 10mm 15mm !important;
         box-shadow: none !important;
         page-break-after: auto;
+        overflow: visible !important;
     }
 
-    /* Prevent table rows splitting */
+    /* Allow table to break across pages */
+    .pdf-table {
+        page-break-inside: auto;
+    }
+
     .pdf-table tr {
         page-break-inside: avoid;
         break-inside: avoid;
-    }
-
-    /* Allow automatic page break */
-    .pdf-table {
-        page-break-inside: auto;
     }
 
     .pdf-footer {
         page-break-inside: avoid;
     }
 }
+
+
 
