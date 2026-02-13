@@ -156,11 +156,14 @@ body {
 
     /* A4 Page - Large View */
     .a4-page {
+        /* Maximize size: 0.46 * 794px = ~365px. */
+        /* If screen is 360px, it scrolls slightly. User wants READABILITY. */
         transform: scale(0.46);
         transform-origin: top center;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: -155mm;
+        /* Less negative margin since page is taller */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -169,18 +172,24 @@ body {
         margin-bottom: 0.5rem;
         background: transparent;
         overflow-x: auto;
+        /* Allow horizontal scroll for the PREVIEW ONLY if needed */
         min-height: 480px;
+        /* Give it space */
         padding-bottom: 20px;
         display: block;
+        /* Let it flow naturally */
         text-align: center;
+        /* Center the scaled element */
     }
 
     .input-group input,
     .input-group select,
     .input-group textarea {
         font-size: 16px;
+        /* Prevent zoom on iOS input focus */
     }
 
+    /* Ads safe mode */
     .ad-banner,
     .ad-sidebar {
         width: 100%;
@@ -188,6 +197,7 @@ body {
         box-sizing: border-box;
     }
 
+    /* Mobile Form Optimization: Force Single Column */
     .grid-2,
     .grid-3 {
         grid-template-columns: 1fr !important;
@@ -196,15 +206,18 @@ body {
 
     .input-group label {
         font-size: 1rem;
+        /* Readable text */
     }
 
     .input-group input,
     .input-group select,
     .input-group textarea {
         padding: 0.8rem;
+        /* Larger touch area */
         font-size: 16px;
     }
 
+    /* Items Table: Scrollable on mobile */
     .items-table-container {
         overflow-x: auto;
         display: block;
@@ -215,28 +228,36 @@ body {
 
     #items-table-editor {
         min-width: 600px;
+        /* Ensure table doesn't squish */
     }
 }
 
-/* Desktop */
+
+/* Force 3-column layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
     .app-container {
+        /* Squeeze columns: Editor | scaled Preview | Ad */
         grid-template-columns: 1fr auto 240px;
+        /* Reduced sidebar width */
         gap: 1rem;
     }
 
     .a4-page {
+        /* Slightly larger preview for laptop */
         transform: scale(0.65);
         transform-origin: top left;
         margin-bottom: -100mm;
         width: 210mm;
     }
 
+    /* Wrapper for preview to constrain its width in the grid */
     .preview-panel {
         width: 140mm;
+        /* Approx width after 0.65 scale */
         overflow: hidden;
     }
 
+    /* Adjust sidebar ad container in this view */
     .ad-sidebar {
         width: 100%;
         max-width: 240px;
@@ -258,6 +279,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100px;
+    /* Leaderboard height approx */
     border-radius: 8px;
 }
 
@@ -271,6 +293,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 600px;
+    /* Skyscraper height */
     position: sticky;
     top: 1rem;
     border-radius: 8px;
@@ -285,9 +308,168 @@ body {
     height: fit-content;
 }
 
+.editor-panel h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-section h3 {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+    /* Changed from 1rem */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-wrapper input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.15s;
+    resize: vertical;
+    /* Allow vertical resize for textarea */
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Items Table Editor */
+#items-table-editor {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#items-table-editor th {
+    text-align: left;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--border-color);
+}
+
+#items-table-editor td {
+    padding-top: 0.5rem;
+}
+
+#items-table-editor input {
+    padding: 0.4rem;
+}
+
+.btn-add-row {
+    color: var(--primary-color);
+    background: none;
+    border: 1px dashed var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-add-row:hover {
+    background: #eff6ff;
+}
+
+.btn-remove {
+    color: var(--danger-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+}
+
+/* Preview Panel */
 .preview-panel {
     position: sticky;
     top: 1rem;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.btn-download {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+    transition: transform 0.1s;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
 }
 
 /* A4 Page */
@@ -297,101 +479,595 @@ body {
     min-height: 297mm;
     margin: 0 auto;
     padding: 10mm 15mm;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     font-size: 14px;
     color: #333;
     display: flex;
     flex-direction: column;
+
+    transform-origin: top left;
 }
 
-/* Footer */
+/* Print/PDF Improvements */
+/* Print/PDF Improvements */
+@media print {
+
+    /* Hide Everything by default */
+    body {
+        background: white;
+    }
+
+    /* Hide Sidebars, Header, Footer, Editor */
+    .site-header,
+    .editor-panel,
+    .ad-banner,
+    .ad-sidebar,
+    footer,
+    .btn-download,
+    .btn-pro,
+    .seo-content,
+    .preview-header {
+        display: none !important;
+    }
+
+    /* Reset Layout */
+    .app-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    /* Force Preview Visibility & Position */
+    .preview-panel {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: static !important;
+        background: white !important;
+        overflow: visible !important;
+    }
+
+    /* Default A4 Page scaling reset */
+    .a4-page {
+        transform: none !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 5mm 15mm !important;
+        /* Reduced top padding slightly */
+        box-shadow: none !important;
+        border: none !important;
+        position: static !important;
+        display: block !important;
+        /* Revert to standard block flow */
+        min-height: auto !important;
+        /* Allow natural height */
+    }
+
+    /* Standard Flow for Footer */
+    .pdf-bottom-section {
+        margin-top: 1rem;
+        /* Standard spacing */
+        page-break-inside: avoid;
+    }
+
+    /* Ensure table headers repeat on new pages */
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Page Configuration */
+    @page {
+        size: A4;
+        margin: 15mm 15mm 40mm 15mm;
+        /* LARGE Bottom Margin forces EARLY break */
+    }
+
+    /* Default A4 Page scaling reset */
+    .a4-page {
+        transform: none !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        display: block !important;
+        /* Revert to standard block */
+        min-height: auto !important;
+    }
+
+    /* Flow Naturally (Don't push footer) */
+    .pdf-bottom-section {
+        margin-top: 2rem;
+        page-break-inside: avoid;
+    }
+}
+
+
+/* PDF Styles */
+/* Compact Header */
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    /* Reduced from 2rem */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    /* Reduced from 1rem */
+    align-items: flex-start;
+}
+
+/* ... existing company info styles ... */
+
+.pdf-invoice-meta h2 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: #cbd5e1;
+    margin: 0 0 0.5rem 0;
+    /* Reduced from 1rem */
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* ... existing refactored meta table ... */
+
+.pdf-bill-to {
+    margin-bottom: 1rem;
+    /* Reduced from 2rem */
+}
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    /* Reduced from 2rem */
+}
+
+.pdf-table th {
+    background: #f9fafb;
+    padding: 6px 8px;
+    /* Reduced vertical padding */
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #ddd;
+    text-align: inherit;
+}
+
+.pdf-table td {
+    padding: 6px 8px;
+    /* Reduced vertical padding */
+    border-bottom: 1px solid #eee;
+}
+
+/* Compact Totals & Footer */
+.pdf-totals {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    /* Reduced from 1rem */
+    page-break-inside: avoid;
+}
+
+.pdf-footer {
+    margin-top: 2rem;
+    /* Reduced from 3rem */
+    text-align: right;
+    page-break-inside: avoid;
+}
+
+.sig-space {
+    height: 50px;
+    /* Reduced from 60px */
+    border-bottom: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.pdf-company-info {
+    max-width: 60%;
+    text-align: left;
+    /* Ensure left alignment */
+}
+
+.pdf-company-info h1 {
+    font-size: 1.8rem;
+    /* Larger Company Name */
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    /* Removing extra margins */
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+/* Ensure address lines stack cleanly */
+.pdf-company-info p {
+    margin: 2px 0;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
+    white-space: pre-line;
+    /* Respect new lines if any */
+}
+
+/* Specific fix for GST/Email lines to add spacing if needed */
+.pdf-company-info .meta-line {
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.pdf-invoice-meta {
+    text-align: right;
+    min-width: 150px;
+    /* Ensure meta block has width */
+}
+
+.pdf-invoice-meta h2 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: #cbd5e1;
+    /* Light gray */
+    margin: 0 0 1rem 0;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+/* Refactored Invoice Meta for precise "Label: Value" alignment */
+.pdf-invoice-meta table {
+    width: auto;
+    border-collapse: collapse;
+    margin-left: auto;
+    /* Push to right */
+}
+
+.pdf-invoice-meta table tr {
+    display: flex;
+    justify-content: flex-end;
+    /* Align right */
+    gap: 8px;
+    /* Force EXACT 8px gap between Label and Value */
+    margin-bottom: 2px;
+}
+
+.pdf-invoice-meta table td {
+    border: none;
+    padding: 0;
+    /* Remove padding to rely on gap */
+    text-align: right;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Label (Invoice #:) */
+.pdf-invoice-meta table td:first-child {
+    font-weight: 600;
+    color: #4b5563;
+    white-space: nowrap;
+}
+
+/* Value (INV-001) */
+.pdf-invoice-meta table td:last-child {
+    font-weight: 600;
+    color: #111827;
+    text-align: left;
+    /* Ensure text starts right after gap */
+    min-width: 90px;
+    /* Consistently align values if needed, or remove for snug fit */
+}
+
+.pdf-bill-to {
+    margin-bottom: 2rem;
+}
+
+.pdf-bill-to h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.4rem;
+}
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.pdf-table th {
+    background: #f9fafb;
+    padding: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #ddd;
+    /* Remove default left align so utility classes work */
+    text-align: inherit;
+}
+
+/* Ensure text-right override works */
+.pdf-table th.text-right,
+.pdf-table td.text-right {
+    text-align: right !important;
+}
+
+.pdf-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Main Items Table */
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.5rem;
+    /* Minimal gap before totals */
+}
+
+/* 
+   Wrapper for Totals + Signature + Conditions 
+   This ensures they stay together as much as possible.
+*/
+.pdf-bottom-section {
+    page-break-inside: avoid;
+    /* Core fix: Try not to break this block */
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Totals Row */
+.pdf-totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    /* Gap between totals and signature */
+}
+
+.amount-in-words {
+    width: 55%;
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+.amount-in-words p {
+    margin-bottom: 0.5rem;
+}
+
+.amount-in-words .terms {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+.totals-breakdown {
+    width: 40%;
+    /* No float, flex handled by parent */
+}
+
+.totals-breakdown .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.totals-breakdown .total-row {
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-top: 2px solid #e5e7eb;
+    margin-top: 8px;
+    padding-top: 8px;
+    color: #111827;
+}
+
+/* Signature Section - Now inside the wrapper */
+.pdf-signature {
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.signature-box {
+    display: inline-block;
+    text-align: center;
+    min-width: 200px;
+}
+
+.signature-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.sig-space {
+    height: 60px;
+    /* Space for physical signature */
+    border-bottom: 1px solid #374151;
+    margin: 4px 0;
+}
+
+/* Ad Banner */
+.ad-banner {
+    max-width: 1400px;
+    margin: 1rem auto;
+    background: #e5e7eb;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
 footer {
     text-align: center;
     padding: 2rem;
     color: var(--text-light);
+    margin-bottom: 2rem;
 }
 
-/* SEO Content */
+.footer-nav {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    color: var(--primary-color);
+}
+
+.brand-link {
+    text-decoration: none;
+    font-weight: 800;
+    color: var(--primary-color);
+    position: relative;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+
+
+    /* Glassy Effect */
+    background: rgba(59, 130, 246, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+
+    /* Glow/Animation */
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.brand-link:hover {
+    color: #2563eb;
+    background: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), 0 0 5px rgba(59, 130, 246, 0.2);
+    transform: translateY(-2px);
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+/* Glass/Gradient Text for Brand */
+.brand-glass {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    filter: drop-shadow(0 0 2px rgba(37, 99, 235, 0.3));
+}
+
+.brand-glass:hover {
+    filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.6));
+    transform: scale(1.05);
+}
+
+/* Static Page Content */
+.static-page-content {
+    /* Seamless Layout */
+    background: transparent;
+    padding: 0 1rem;
+    max-width: 1000px;
+    margin: 4rem auto;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .static-page-content {
+        margin: 2rem auto;
+    }
+}
+
+.static-page-content h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.static-page-content p {
+    margin-bottom: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.static-page-content h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #1f2937;
+}
+
+.static-page-content ul {
+    text-align: left;
+    display: inline-block;
+    margin: 1rem 0;
+    color: #4b5563;
+}
+
+.text-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+
+}
+
+/* SEO Content Section (AdSense Approval Boost) */
 .seo-content {
     max-width: 1000px;
     margin: 40px auto;
     background: var(--white);
     padding: 24px;
     border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-/* ===== FINAL PROFESSIONAL PRINT SETTINGS ===== */
-@media print {
+.seo-content h2,
+.seo-content h3 {
+    margin-bottom: 0.8rem;
+    color: #111827;
+}
 
-    @page {
-        size: A4;
-        margin: 12mm;
-    }
+.seo-content p {
+    margin-bottom: 1rem;
+    color: #4b5563;
+    line-height: 1.7;
+}
 
-    body {
-        background: #fff !important;
-    }
-
-    .site-header,
-    .editor-panel,
-    .preview-header,
-    .ad-banner,
-    .ad-sidebar,
-    footer,
-    .seo-content {
-        display: none !important;
-    }
-
-    .app-container {
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .preview-panel {
-        width: 100% !important;
-        position: static !important;
-        overflow: visible !important;
-    }
-
-    /* ⭐ ONLY REAL FIX ADDED HERE */
-    .a4-page {
-        display: block !important;   /* <<< THIS FIXES MULTI PAGE */
-        transform: none !important;
-        width: auto !important;
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        margin: 0 !important;
-        padding: 10mm 15mm !important;
-        box-shadow: none !important;
-        overflow: visible !important;
-    }
-
-    .pdf-table {
-        page-break-inside: auto;
-    }
-
-    .pdf-table tr {
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    .pdf-table thead {
-        display: table-header-group;
-    }
-
-    .pdf-totals,
-    .pdf-footer {
-        page-break-inside: avoid;
-    }
-
-    body::after {
-        content: "Page " counter(page);
-        position: fixed;
-        bottom: 5mm;
-        right: 10mm;
-        font-size: 11px;
-        color: #666;
-    }
+.seo-content ul {
+    padding-left: 1.2rem;
+    color: #4b5563;
 }
