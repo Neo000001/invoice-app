@@ -1045,25 +1045,6 @@ footer {
 
 }
 
-/* ===== TOP SEO SECTION ===== */
-.top-seo {
-  max-width: 1000px;
-  margin: 2rem auto 1rem auto;
-  padding: 0 1rem;
-  text-align: center;
-}
-
-.top-seo h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #111827;
-}
-
-.top-seo p {
-  color: #4b5563;
-  font-size: 1rem;
-  line-height: 1.6;
-}
 
 /* SEO Content Section (AdSense Approval Boost) */
 .seo-content {
@@ -1098,5 +1079,6 @@ footer {
     padding-left: 1.2rem;
     color: #4b5563;
 }
+
 
 
