@@ -782,3 +782,58 @@ footer {
     padding-left: 1.2rem;
     color: #4b5563;
 }
+/* ===== PRINT FIX FOR MULTI PAGE PDF ===== */
+@media print {
+
+    body {
+        background: white !important;
+    }
+
+    /* Hide everything except invoice */
+    .site-header,
+    .editor-panel,
+    .preview-header,
+    .ad-banner,
+    .ad-sidebar,
+    footer,
+    .seo-content {
+        display: none !important;
+    }
+
+    .app-container {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .preview-panel {
+        position: static !important;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .a4-page {
+        transform: none !important;   /* VERY IMPORTANT */
+        width: 210mm !important;
+        min-height: auto !important;
+        margin: 0 auto !important;
+        box-shadow: none !important;
+        page-break-after: auto;
+    }
+
+    /* Prevent table rows splitting */
+    .pdf-table tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Allow automatic page break */
+    .pdf-table {
+        page-break-inside: auto;
+    }
+
+    .pdf-footer {
+        page-break-inside: avoid;
+    }
+}
+
