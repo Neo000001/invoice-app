@@ -99,9 +99,11 @@ body {
 @media (max-width: 900px) {
     .app-container {
         /* Stack everything on mobile/tablet */
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         padding: 0.5rem;
         /* Less padding on mobile */
+        overflow-x: hidden;
     }
 
     .ad-sidebar {
@@ -112,35 +114,15 @@ body {
         position: static;
         margin-top: 2rem;
     }
-
-    /* Mobile Scaling for A4 Preview */
-    .a4-page {
-        /* Start with a moderate scale for tablets */
-        transform: scale(0.6);
-        transform-origin: top center;
-        margin-bottom: -100mm;
-        width: 210mm;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .preview-panel {
-        width: 100%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        background: #f3f4f6;
-        padding-bottom: 1rem;
-        /* Ensure preview panel has enough height context */
-        min-height: 400px;
-    }
 }
 
 /* Specific Mobile Optimization (< 480px) */
 @media (max-width: 480px) {
     .app-container {
         padding: 5px !important;
-        overflow-x: hidden;
-        width: 100%;
+        overflow-x: hidden !important;
+        width: 100vw;
+        max-width: 100vw;
         display: flex;
         flex-direction: column;
         min-width: 0;
@@ -165,16 +147,17 @@ body {
         order: 2;
     }
 
-    /* A4 Page - Large View */
+    /* A4 Page - Mobile Auto Scale */
     .a4-page {
-        /* Maximize size: 0.46 * 794px = ~365px. */
-        /* If screen is 360px, it scrolls slightly. User wants READABILITY. */
-        transform: scale(0.46);
-        transform-origin: top center;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: -155mm;
-        /* Less negative margin since page is taller */
+        position: relative !important;
+        left: 50% !important;
+        transform: translateX(-50%) scale(0.44) !important;
+        transform-origin: top center !important;
+        width: 794px !important;
+        max-width: none !important;
+        margin: 0 !important;
+        margin-bottom: -620px !important;
+        /* Offset scaled height to remove dead space */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -182,13 +165,20 @@ body {
         order: -1;
         margin-bottom: 0.5rem;
         background: transparent;
-        overflow-x: hidden;
-        min-height: 480px;
-        padding-bottom: 20px;
-        display: flex;
-        justify-content: center;
+        overflow-x: hidden !important;
+        min-height: auto;
+        padding: 5px;
+        box-sizing: border-box;
+        display: block !important;
         width: 100%;
+        max-width: 100vw;
         min-width: 0;
+    }
+
+    #preview-pages-container {
+        display: block !important;
+        width: 100%;
+        overflow-x: hidden !important;
     }
 
     .input-group input,
@@ -241,6 +231,26 @@ body {
     }
 }
 
+/* A4 Responsive Override (Handles all screens under 900px, replaces scale logic) */
+@media (max-width: 900px) {
+    .a4-page {
+        position: relative !important;
+        left: 50% !important;
+        transform: translateX(-50%) scale(0.60) !important;
+        transform-origin: top center !important;
+        width: 794px !important;
+        max-width: none !important;
+        margin: 0 !important;
+        margin-bottom: -450px !important;
+        /* Offset scaled height to remove dead space */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .preview-panel {
+        display: block !important;
+        overflow-x: hidden !important;
+    }
+}
 
 /* Force 3-column layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
