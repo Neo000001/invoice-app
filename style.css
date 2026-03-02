@@ -1058,30 +1058,51 @@ footer {
 
 
 /* SEO Content Section (AdSense Approval Boost) */
-.seo-content {
-    max-width: 1000px;
-    margin: 40px auto;
-    background: var(--white);
-    padding: 24px;
+.top-seo {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.top-seo h1 {
+    font-size: 2rem;
+    color: #111827;
+    margin-bottom: 0.8rem;
+}
+
+.top-seo p {
+    color: #4b5563;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.ad-safe-content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 2rem;
+    background: #fff;
+    color: #333;
+    line-height: 1.7;
+    font-size: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.seo-content h2,
-.seo-content h3 {
-    margin-bottom: 0.8rem;
+.ad-safe-content h2,
+.ad-safe-content h3 {
     color: #111827;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
 }
 
-.seo-content p {
+.ad-safe-content p {
     margin-bottom: 1rem;
-    color: #4b5563;
-    line-height: 1.7;
 }
 
-.seo-content ul {
-    padding-left: 1.2rem;
-    color: #4b5563;
+.ad-safe-content ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Modal form & Popup Styles for Feedback */
