@@ -206,20 +206,6 @@ body {
         /* Larger touch area */
         font-size: 16px;
     }
-
-    /* Items Table: Scrollable on mobile */
-    .items-table-container {
-        overflow-x: auto;
-        display: block;
-        width: 100%;
-        -webkit-overflow-scrolling: touch;
-        margin-bottom: 1rem;
-    }
-
-    #items-table-editor {
-        min-width: 600px;
-        /* Ensure table doesn't squish */
-    }
 }
 
 /* A4 Responsive Override (Handles all screens under 900px, replaces scale logic) */
@@ -312,6 +298,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     height: fit-content;
+    min-width: 0;
+    /* Important for grid shrinkage */
 }
 
 .editor-panel h2 {
@@ -402,7 +390,16 @@ body {
 }
 
 /* Items Table Editor */
+.items-table-container {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
 #items-table-editor {
+    min-width: 600px;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
