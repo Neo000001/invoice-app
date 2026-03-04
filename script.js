@@ -386,6 +386,40 @@ function updatePreview() {
 
         container.appendChild(page);
     }
+
+    managePreviewScale();
+}
+
+// Manage dynamic scale of preview to fit seamlessly on any screen
+function managePreviewScale() {
+    const container = document.getElementById('preview-pages-container');
+    const pages = document.querySelectorAll('.a4-page');
+    if (!container || pages.length === 0) return;
+
+    const nativeWidth = 794;
+    let availableWidth = container.clientWidth;
+    // Add 10px safe margin padding
+    let scale = (availableWidth - 20) / nativeWidth;
+
+    // Don't upscale past 100% on huge desktop screens
+    if (scale > 1) scale = 1;
+
+    pages.forEach((page, index) => {
+        // Find left offset to center exactly inside viewport naturally
+        const currentScaledWidth = nativeWidth * scale;
+        const leftMargin = (availableWidth - currentScaledWidth) / 2;
+
+        page.style.transform = `scale(${scale})`;
+        page.style.transformOrigin = `top left`;
+        page.style.marginLeft = `${Math.max(0, leftMargin)}px`;
+
+        // Compensate for CSS transform keeping physical height in DOM
+        const scaledHeight = page.offsetHeight * scale;
+        const offsetGap = page.offsetHeight - scaledHeight;
+
+        // Leave tiny space between pages, but strip the massive underlying dead zone box
+        page.style.marginBottom = `-${offsetGap - 20}px`;
+    });
 }
 
 // Download PDF
@@ -448,5 +482,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listeners
     document.getElementById('invoice-form').addEventListener('input', updatePreview);
     document.getElementById('invoice-form').addEventListener('change', updatePreview);
+    window.addEventListener('resize', () => { setTimeout(managePreviewScale, 50); });
 });
 

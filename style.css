@@ -147,17 +147,8 @@ body {
         order: 2;
     }
 
-    /* A4 Page - Mobile Auto Scale */
+    /* A4 Page - Managed by JS */
     .a4-page {
-        position: relative !important;
-        left: 50% !important;
-        transform: translateX(-50%) scale(0.44) !important;
-        transform-origin: top center !important;
-        width: 794px !important;
-        max-width: none !important;
-        margin: 0 !important;
-        margin-bottom: -620px !important;
-        /* Offset scaled height to remove dead space */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -234,15 +225,6 @@ body {
 /* A4 Responsive Override (Handles all screens under 900px, replaces scale logic) */
 @media (max-width: 900px) {
     .a4-page {
-        position: relative !important;
-        left: 50% !important;
-        transform: translateX(-50%) scale(0.60) !important;
-        transform-origin: top center !important;
-        width: 794px !important;
-        max-width: none !important;
-        margin: 0 !important;
-        margin-bottom: -450px !important;
-        /* Offset scaled height to remove dead space */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -252,28 +234,33 @@ body {
     }
 }
 
-/* Force 3-column layout on standard Laptops and Tablets (Landscape) */
+/* Small Laptops (Protect Layout Squeeze) */
+@media (max-width: 1200px) and (min-width: 901px) {
+    .app-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ad-sidebar {
+        grid-column: span 2;
+        margin-top: 1rem;
+    }
+}
+
+/* Force layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
     .app-container {
-        /* Squeeze columns: Editor | scaled Preview | Ad */
-        grid-template-columns: 1fr auto 240px;
-        /* Reduced sidebar width */
+        grid-template-columns: 1.1fr 1fr 240px;
         gap: 1rem;
     }
 
     .a4-page {
-        /* Slightly larger preview for laptop */
-        transform: scale(0.65);
-        transform-origin: top left;
-        margin-bottom: -100mm;
-        width: 210mm;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     /* Wrapper for preview to constrain its width in the grid */
     .preview-panel {
-        width: 140mm;
-        /* Approx width after 0.65 scale */
-        overflow: hidden;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     /* Adjust sidebar ad container in this view */
