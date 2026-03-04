@@ -223,7 +223,7 @@ body {
 /* Small Laptops (Protect Layout Squeeze) */
 @media (max-width: 1200px) and (min-width: 901px) {
     .app-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1.6fr 1fr;
     }
 
     .ad-sidebar {
@@ -235,7 +235,7 @@ body {
 /* Force layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
     .app-container {
-        grid-template-columns: 1.1fr 1fr 240px;
+        grid-template-columns: 1.6fr 1fr 240px;
         gap: 1rem;
     }
 
@@ -392,10 +392,6 @@ body {
 /* Items Table Editor */
 .items-table-container {
     width: 100%;
-    overflow-x: auto;
-    display: block;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1rem;
 }
 
 #items-table-editor {
@@ -407,6 +403,13 @@ body {
 }
 
 @media (max-width: 900px) {
+    .items-table-container {
+        overflow-x: auto;
+        display: block;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1rem;
+    }
+
     #items-table-editor {
         min-width: 600px;
     }
@@ -426,11 +429,22 @@ body {
 
 #items-table-editor input,
 #items-table-editor select {
-    padding: 0.3rem 0.2rem;
-    font-size: 0.85rem;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.95rem;
     min-width: 0;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Hide bulky number input arrows so fields can squish down */
+#items-table-editor input[type="number"]::-webkit-inner-spin-button,
+#items-table-editor input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#items-table-editor input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 .btn-add-row {
