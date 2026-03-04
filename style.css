@@ -399,10 +399,17 @@ body {
 }
 
 #items-table-editor {
-    min-width: 600px;
+    min-width: 100%;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    table-layout: fixed;
+}
+
+@media (max-width: 900px) {
+    #items-table-editor {
+        min-width: 600px;
+    }
 }
 
 #items-table-editor th {
@@ -417,8 +424,13 @@ body {
     padding-top: 0.5rem;
 }
 
-#items-table-editor input {
-    padding: 0.4rem;
+#items-table-editor input,
+#items-table-editor select {
+    padding: 0.3rem 0.2rem;
+    font-size: 0.85rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .btn-add-row {
