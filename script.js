@@ -438,6 +438,17 @@ window.downloadPDF = async function () {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
 
+    // Reset scaling and styling temporarily for clean PDF generation
+    pages.forEach(page => {
+        page.style.transform = 'none';
+        page.style.marginLeft = '0px';
+        page.style.marginBottom = '0px';
+        page.style.boxShadow = 'none';
+    });
+    
+    // Allow the DOM to update to ensure html2canvas paints the non-scaled version
+    await new Promise(resolve => setTimeout(resolve, 50));
+
     for (let i = 0; i < pages.length; i++) {
         if (i > 0) pdf.addPage();
         const element = pages[i];
@@ -456,6 +467,12 @@ window.downloadPDF = async function () {
             console.error(err);
         }
     }
+
+    // Restore styling and recalculate scaling
+    pages.forEach(page => {
+        page.style.boxShadow = '';
+    });
+    managePreviewScale();
 
     pdf.save(`${invoiceNum}.pdf`);
     document.querySelector('.btn-download').innerText = simpleBtnInitialText;
