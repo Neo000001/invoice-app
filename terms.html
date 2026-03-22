@@ -141,6 +141,7 @@
         function closeAdBlockNotice() {
             document.getElementById('adblock-notice').style.display = 'none';
             document.getElementById('adblock-overlay').style.display = 'none';
+            localStorage.setItem('adblock_dismissed', 'true');
         }
     </script>
 </body>

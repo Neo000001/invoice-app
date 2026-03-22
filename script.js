@@ -6,8 +6,41 @@
  * Unauthorized copying, modification, or distribution is strictly prohibited.
  */
 
-// Disable Right Click
-document.addEventListener('contextmenu', event => event.preventDefault()); // Remove right-click block for better UX
+// Security Measures (Anti-inspect, Disable Right Click, Copy)
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.addEventListener('keydown', function(e) {
+    // Disable F12
+    if(e.code === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+    }
+    // Disable Ctrl+Shift+I / Cmd+Option+I
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+        e.preventDefault();
+        return false;
+    }
+    // Disable Ctrl+Shift+J / Cmd+Option+J
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+        e.preventDefault();
+        return false;
+    }
+    // Disable Ctrl+U / Cmd+U (View Source)
+    if((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+    }
+    // Disable Ctrl+Shift+C / Cmd+Option+C
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    return false;
+});
 
 // Indian States List
 const states = [
@@ -466,17 +499,21 @@ window.downloadPDF = async function () {
 
 // AdBlock Detection
 function checkAdBlock() {
+    // If user already dismissed it, don't show it again
+    if (localStorage.getItem('adblock_dismissed') === 'true') return;
+
     setTimeout(() => {
         const adSlots = document.querySelectorAll('.adsbygoogle');
         let adsBlocked = false;
 
         // Common ways to check if ads are blocked
-        if (typeof adsbygoogle === 'undefined') {
+        if (typeof adsbygoogle === 'undefined' || !window.adsbygoogle) {
             adsBlocked = true;
         } else {
-            // Check if ad slots have height or if they are hidden
+            // Check if ad slots are explicitly hidden by an ad blocker
             adSlots.forEach(slot => {
-                if (slot.offsetHeight === 0 || window.getComputedStyle(slot).display === 'none') {
+                const style = window.getComputedStyle(slot);
+                if (style.display === 'none' || style.visibility === 'hidden') {
                     adsBlocked = true;
                 }
             });
