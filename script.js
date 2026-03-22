@@ -23,12 +23,14 @@ function populateStates() {
     const companyState = document.getElementById('companyState');
     const clientState = document.getElementById('clientState');
 
-    states.forEach(state => {
-        const option1 = new Option(state, state);
-        const option2 = new Option(state, state);
-        companyState.add(option1);
-        clientState.add(option2);
-    });
+    if (companyState && clientState) {
+        states.forEach(state => {
+            const option1 = new Option(state, state);
+            const option2 = new Option(state, state);
+            companyState.add(option1);
+            clientState.add(option2);
+        });
+    }
 }
 
 // Format Currency
@@ -438,17 +440,6 @@ window.downloadPDF = async function () {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
 
-    // Reset scaling and styling temporarily for clean PDF generation
-    pages.forEach(page => {
-        page.style.transform = 'none';
-        page.style.marginLeft = '0px';
-        page.style.marginBottom = '0px';
-        page.style.boxShadow = 'none';
-    });
-    
-    // Allow the DOM to update to ensure html2canvas paints the non-scaled version
-    await new Promise(resolve => setTimeout(resolve, 50));
-
     for (let i = 0; i < pages.length; i++) {
         if (i > 0) pdf.addPage();
         const element = pages[i];
@@ -468,18 +459,39 @@ window.downloadPDF = async function () {
         }
     }
 
-    // Restore styling and recalculate scaling
-    pages.forEach(page => {
-        page.style.boxShadow = '';
-    });
-    managePreviewScale();
-
     pdf.save(`${invoiceNum}.pdf`);
     document.querySelector('.btn-download').innerText = simpleBtnInitialText;
 };
 
-/* Initialization */
-window.pageTemplateHTML = '';
+
+// AdBlock Detection
+function checkAdBlock() {
+    setTimeout(() => {
+        const adSlots = document.querySelectorAll('.adsbygoogle');
+        let adsBlocked = false;
+
+        // Common ways to check if ads are blocked
+        if (typeof adsbygoogle === 'undefined') {
+            adsBlocked = true;
+        } else {
+            // Check if ad slots have height or if they are hidden
+            adSlots.forEach(slot => {
+                if (slot.offsetHeight === 0 || window.getComputedStyle(slot).display === 'none') {
+                    adsBlocked = true;
+                }
+            });
+        }
+
+        if (adsBlocked) {
+            const overlay = document.getElementById('adblock-overlay');
+            const notice = document.getElementById('adblock-notice');
+            if (overlay && notice) {
+                overlay.style.display = 'block';
+                notice.style.display = 'block';
+            }
+        }
+    }, 2500); // Wait 2.5s for AdSense to attempt load
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     populateStates();
@@ -491,14 +503,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Header Time
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('invoiceDate').value = today;
+    const invoiceDateEl = document.getElementById('invoiceDate');
+    if (invoiceDateEl) invoiceDateEl.value = today;
 
     // Add one initial row
-    addItemRow();
+    if (document.querySelector('#items-table-editor tbody')) {
+        addItemRow();
+    }
 
     // Listeners
-    document.getElementById('invoice-form').addEventListener('input', updatePreview);
-    document.getElementById('invoice-form').addEventListener('change', updatePreview);
+    const formEl = document.getElementById('invoice-form');
+    if (formEl) {
+        formEl.addEventListener('input', updatePreview);
+        formEl.addEventListener('change', updatePreview);
+    }
     window.addEventListener('resize', () => { setTimeout(managePreviewScale, 50); });
+
+    // Launch AdBlock check
+    checkAdBlock();
 });
 

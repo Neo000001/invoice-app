@@ -134,6 +134,22 @@
         </div>
     </footer>
 
+    <!-- AdBlock Detection -->
+    <div id="adblock-overlay" class="adblock-overlay"></div>
+    <div id="adblock-notice" class="adblock-notice">
+        <h2>AdBlock Detected 🚫</h2>
+        <p>We see you're using an ad blocker. Please consider disabling it to support our free tool. Ads help us keep Eebii free for everyone.</p>
+        <button class="btn-continue" onclick="closeAdBlockNotice()">I've disabled it / Continue anyway</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function closeAdBlockNotice() {
+            document.getElementById('adblock-notice').style.display = 'none';
+            document.getElementById('adblock-overlay').style.display = 'none';
+        }
+    </script>
 </body>
+
 
 </html>

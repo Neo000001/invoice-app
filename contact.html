@@ -8,7 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7048088905906211"
+        crossorigin="anonymous"></script>
     <style>
+
         :root {
             --bg-grad-1: #f8fafc;
             --bg-grad-2: #e2e8f0;
@@ -270,7 +274,9 @@
             font-size: 14px;
         }
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 
 <body>
 
@@ -505,6 +511,22 @@
         </p>
     </footer>
 
+    <!-- AdBlock Detection -->
+    <div id="adblock-overlay" class="adblock-overlay"></div>
+    <div id="adblock-notice" class="adblock-notice">
+        <h2>AdBlock Detected 🚫</h2>
+        <p>We see you're using an ad blocker. Please consider disabling it to support our free tool. Ads help us keep Eebii free for everyone.</p>
+        <button class="btn-continue" onclick="closeAdBlockNotice()">I've disabled it / Continue anyway</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function closeAdBlockNotice() {
+            document.getElementById('adblock-notice').style.display = 'none';
+            document.getElementById('adblock-overlay').style.display = 'none';
+        }
+    </script>
 </body>
+
 
 </html>
