@@ -481,12 +481,29 @@ window.downloadPDF = async function () {
             const canvas = await html2canvas(element, {
                 scale: 2,
                 useCORS: true,
-                logging: false
+                logging: false,
+                backgroundColor: "#ffffff", // Ensure white background to stop "shades"
+                allowTaint: true,
+                scrollX: 0,
+                scrollY: 0,
+                onclone: (clonedDoc) => {
+                    const clonedPages = clonedDoc.querySelectorAll('.a4-page');
+                    if (clonedPages[i]) {
+                        clonedPages[i].style.boxShadow = 'none';
+                        clonedPages[i].style.transform = 'none';
+                        clonedPages[i].style.margin = '0 auto'; 
+                        clonedPages[i].style.display = 'block';
+                    }
+                    // Crucial: hide everything except the specifically targeted page
+                    clonedDoc.querySelectorAll('.a4-page').forEach((p, idx) => {
+                        if (idx !== i) p.style.display = 'none';
+                    });
+                }
             });
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
         } catch (err) {
             console.error(err);
         }
