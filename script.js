@@ -85,6 +85,8 @@ function formatDateDMY(dateString) {
 
 // Number to Words (Indian Numbering System)
 function numberToWords(num) {
+    if (num === 0) return 'Zero';
+    
     const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
     const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
@@ -97,9 +99,9 @@ function numberToWords(num) {
     str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
     str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
     str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
-    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Only' : 'Only';
+    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) : '';
 
-    return str;
+    return str.trim();
 }
 
 // Add Item Row
@@ -412,7 +414,8 @@ function updatePreview() {
             const grandTotal = globalSubtotal + globalTotalTax;
             if (page.querySelector('#p-grandTotal')) page.querySelector('#p-grandTotal').textContent = formatCurrency(grandTotal);
             if (page.querySelector('#p-amountInWords')) {
-                page.querySelector('#p-amountInWords').textContent = numberToWords(Math.round(grandTotal)) + (grandTotal > 0 ? ' Rupees Only' : '');
+                const words = numberToWords(Math.round(grandTotal));
+                page.querySelector('#p-amountInWords').textContent = words + (words ? ' Rupees Only' : '');
             }
         } else {
             if (pdfTotals) pdfTotals.style.display = 'none';

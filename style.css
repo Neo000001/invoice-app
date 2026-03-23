@@ -695,9 +695,8 @@ input, textarea, select {
 .pdf-invoice-meta h2 {
     font-size: 1.4rem;
     text-transform: uppercase;
-    color: #cbd5e1;
+    color: #4b5563; /* Darker more professional gray */
     margin: 0 0 0.5rem 0;
-    /* Reduced from 1rem */
     font-weight: 800;
     letter-spacing: 1px;
 }
@@ -939,7 +938,13 @@ input, textarea, select {
 
 .totals-breakdown {
     width: 40%;
-    /* No float, flex handled by parent */
+}
+
+.bg-gray {
+    background: #f9fafb;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
 }
 
 .totals-breakdown .row {
