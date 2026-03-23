@@ -473,44 +473,60 @@ window.downloadPDF = async function () {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p', 'mm', 'a4');
 
-    for (let i = 0; i < pages.length; i++) {
-        if (i > 0) pdf.addPage();
-        const element = pages[i];
+    // Store original styles to restore later
+    const originalStyles = [];
+    pages.forEach(page => {
+        originalStyles.push({
+            transform: page.style.transform,
+            transformOrigin: page.style.transformOrigin,
+            marginLeft: page.style.marginLeft,
+            marginBottom: page.style.marginBottom,
+            boxShadow: page.style.boxShadow
+        });
 
-        try {
+        // Reset for clean capture
+        page.style.transform = 'none';
+        page.style.transformOrigin = 'unset';
+        page.style.marginLeft = '0';
+        page.style.marginBottom = '20px'; // Natural gap
+        page.style.boxShadow = 'none'; // Prevent shadow artifacts in PDF
+    });
+
+    try {
+        for (let i = 0; i < pages.length; i++) {
+            if (i > 0) pdf.addPage();
+            const element = pages[i];
+
             const canvas = await html2canvas(element, {
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                backgroundColor: "#ffffff", // Ensure white background to stop "shades"
-                allowTaint: true,
                 scrollX: 0,
-                scrollY: 0,
-                onclone: (clonedDoc) => {
-                    const clonedPages = clonedDoc.querySelectorAll('.a4-page');
-                    if (clonedPages[i]) {
-                        clonedPages[i].style.boxShadow = 'none';
-                        clonedPages[i].style.transform = 'none';
-                        clonedPages[i].style.margin = '0 auto'; 
-                        clonedPages[i].style.display = 'block';
-                    }
-                    // Crucial: hide everything except the specifically targeted page
-                    clonedDoc.querySelectorAll('.a4-page').forEach((p, idx) => {
-                        if (idx !== i) p.style.display = 'none';
-                    });
-                }
+                scrollY: -window.scrollY,
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight
             });
-            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
-        } catch (err) {
-            console.error(err);
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
         }
+        pdf.save(`${invoiceNum}.pdf`);
+    } catch (err) {
+        console.error("PDF Generation Error:", err);
+        alert("An error occurred while generating the PDF. Please try again.");
+    } finally {
+        // Restore original styles
+        pages.forEach((page, i) => {
+            page.style.transform = originalStyles[i].transform;
+            page.style.transformOrigin = originalStyles[i].transformOrigin;
+            page.style.marginLeft = originalStyles[i].marginLeft;
+            page.style.marginBottom = originalStyles[i].marginBottom;
+            page.style.boxShadow = originalStyles[i].boxShadow;
+        });
+        document.querySelector('.btn-download').innerText = simpleBtnInitialText;
     }
-
-    pdf.save(`${invoiceNum}.pdf`);
-    document.querySelector('.btn-download').innerText = simpleBtnInitialText;
 };
 
 

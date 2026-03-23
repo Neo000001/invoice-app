@@ -285,8 +285,8 @@ input, textarea, select {
 /* Force layout on standard Laptops and Tablets (Landscape) */
 @media (min-width: 901px) {
     .app-container {
-        grid-template-columns: 1.5fr 1.2fr 300px; /* Adjusted ratios to give preview more room */
-        gap: 1.5rem;
+        grid-template-columns: 1.6fr 1fr 240px;
+        gap: 1rem;
     }
 
     .a4-page {
@@ -326,8 +326,7 @@ input, textarea, select {
 }
 
 .ad-sidebar {
-    width: 100%;
-    max-width: 300px;
+    width: 300px;
     background: #f1f5f9;
     border: 1px dashed #cbd5e1;
     color: #64748b;
