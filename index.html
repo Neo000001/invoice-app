@@ -1,0 +1,796 @@
+<!--
+  Copyright (c) 2026 Eebii Invoice Generator. All Rights Reserved.
+  Unauthorized use is prohibited.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free GST Invoice Generator India – No Login Required | Eebii</title>
+    <meta name="description"
+        content="Free GST Invoice Generator for India. Create professional tax invoices online with automatic CGST, SGST & IGST calculation. No login required. Download PDF instantly.">
+
+    <link rel="canonical" href="https://invoice.eebii.com/">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="manifest" href="/site.webmanifest">
+
+    <meta name="theme-color" content="#3b82f6">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://invoice.eebii.com/">
+    <meta property="og:title" content="Free GST Invoice Generator India – No Login Required | Eebii">
+    <meta property="og:description"
+        content="Create professional GST invoices for free. No login required. Auto GST calculation. Download clean PDF instantly.">
+    <meta property="og:image" content="https://invoice.eebii.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://invoice.eebii.com/">
+    <meta property="twitter:title" content="Free GST Invoice Generator India – No Login Required | Eebii">
+    <meta property="twitter:description"
+        content="Create professional GST invoices for free. No login required. Auto GST calculation. Download clean PDF instantly.">
+    <meta property="twitter:image" content="https://invoice.eebii.com/og-image.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Eebii GST Invoice Generator",
+  "url": "https://invoice.eebii.com/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Free online GST invoice generator for India. Create professional tax invoices instantly with automatic CGST, SGST and IGST calculation. No login required.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Eebii",
+    "url": "https://eebii.com"
+  }
+}
+</script>
+    <!-- ⭐ FAQ Schema (ADD HERE) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this GST invoice generator free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Eebii GST Invoice Generator is completely free to use with no login required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it calculate CGST, SGST and IGST automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the tool automatically calculates CGST, SGST or IGST based on the selected states."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download the invoice as PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can download a professional A4 PDF invoice instantly."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Meta Canonical & SEO -->
+    <link rel="canonical" href="https://invoice.eebii.com/">
+
+    <!-- jsPDF and html2canvas for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7048088905906211"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- Top Announcement / Updates Banner -->
+    <div id="updates-banner" class="updates-banner">
+        <div class="updates-content">
+            <span class="updates-tag">✨ New Features</span>
+            <span>Auto HSN/SAC, Separate CGST/SGST Breakdown & Custom Bank Details are live in the free version!</span>
+            <a href="javascript:void(0)" onclick="openUpdatesModal()" class="updates-link">See All Features →</a>
+        </div>
+        <button class="updates-close" onclick="closeUpdatesBanner()" title="Dismiss">&times;</button>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="logo">Eebii <span class="badge">Invoice</span></div>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a href="javascript:void(0)" onclick="openUpdatesModal()" class="btn-pro"
+                style="background: rgba(59, 130, 246, 0.1); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow:none; cursor:pointer;">What's New ✨</a>
+            <a href="javascript:void(0)" onclick="openFeedbackModal()" class="btn-pro"
+                style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); box-shadow:none; cursor:pointer;">Feedback
+                💡</a>
+            <a href="contact.html" class="btn-pro">Go Pro 🚀</a>
+        </div>
+    </header>
+
+    <!-- Top SEO Section (Fixes Low Value Above Fold) -->
+    <section class="top-seo">
+        <h1>Free GST Invoice Generator for India</h1>
+        <p>
+            Create professional GST-compliant invoices instantly online.
+            Eebii helps Indian freelancers and businesses generate invoices
+            with automatic CGST, SGST and IGST calculation. No login required.
+        </p>
+    </section>
+
+    <!-- Top Ad Banner Placeholder -->
+    <div class="ad-banner">
+        <!-- AdSense Top Banner -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7048088905906211"
+            data-ad-slot="5586262618" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- Main Content -->
+    <main class="app-container">
+
+        <!-- EDITOR SECTION (Left) -->
+        <section class="editor-panel">
+            <h2>Invoice Details</h2>
+
+            <form id="invoice-form" onsubmit="return false;">
+
+                <!-- Business Details -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3>Your Business</h3>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="companyGstRegistered" checked onchange="toggleCompanyGst()">
+                            <span>I have a GSTIN</span>
+                        </label>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Company Name *</label>
+                            <input type="text" id="companyName" placeholder="Your Business Name" required>
+                        </div>
+                        <div class="input-group" id="companyGstGroup">
+                            <label>GSTIN *</label>
+                            <input type="text" id="companyGst" placeholder="22AAAAA0000A1Z5">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Address</label>
+                        <textarea id="companyAddress" placeholder="Street, City, Zip" rows="3"></textarea>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>State *</label>
+                            <select id="companyState" required>
+                                <option value="" disabled selected>Select State</option>
+                                <!-- States will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Email & Phone</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="email" id="companyEmail" placeholder="business@example.com"
+                                    style="flex: 1;">
+                                <input type="text" id="companyPhone" placeholder="Phone Number" style="flex: 1;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Details -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3>Bill To</h3>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" id="showBillToAllPages" onchange="updatePreview()">
+                                <span>Show on all pages</span>
+                            </label>
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" id="clientGstRegistered" onchange="toggleClientGst()">
+                                <span>Client has GSTIN</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Client Name *</label>
+                            <input type="text" id="clientName" placeholder="Client Business Name" required>
+                        </div>
+                        <div class="input-group" id="clientGstGroup" style="display:none;">
+                            <label>Client GSTIN</label>
+                            <input type="text" id="clientGst" placeholder="Optional">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Client Address</label>
+                        <textarea id="clientAddress" placeholder="Client Address" rows="3"></textarea>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Client State *</label>
+                            <select id="clientState" required>
+                                <option value="" disabled selected>Select State</option>
+                                <!-- States will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Client Phone</label>
+                            <input type="text" id="clientPhone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Meta -->
+                <div class="form-section">
+                    <h3>Invoice Info</h3>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Invoice #</label>
+                            <input type="text" id="invoiceNumber" placeholder="INV-001">
+                        </div>
+                        <div class="input-group">
+                            <label>Date</label>
+                            <input type="date" id="invoiceDate">
+                        </div>
+                        <div class="input-group">
+                            <label>Due Date</label>
+                            <input type="date" id="dueDate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Details -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3>Bank Details</h3>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="includeBankDetails" onchange="toggleBankDetails()">
+                            <span>Include Bank Details</span>
+                        </label>
+                    </div>
+                    <div id="bankDetailsFormGroup" style="display: none;">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Bank Name</label>
+                                <input type="text" id="bankName" placeholder="e.g. Indian Overseas Bank">
+                            </div>
+                            <div class="input-group">
+                                <label>Account Number</label>
+                                <input type="text" id="bankAccount" placeholder="e.g. 061902000001478">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Branch & IFSC Code</label>
+                                <input type="text" id="bankIfsc" placeholder="e.g. Chemmakadu & IOBA0000619">
+                            </div>
+                            <div class="input-group">
+                                <label>Account Holder Name</label>
+                                <input type="text" id="bankAccountHolder" placeholder="e.g. Your Company Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="form-section">
+                    <h3>Items</h3>
+                    <div class="items-table-container">
+                        <table id="items-table-editor">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Item</th>
+                                    <th style="width: 15%">Desc.</th>
+                                    <th style="width: 13%">HSN/SAC</th>
+                                    <th style="width: 9%">Qty</th>
+                                    <th style="width: 13%">Rate</th>
+                                    <th style="width: 10%">Disc.</th>
+                                    <th style="width: 15%">GST %</th>
+                                    <th style="width: 5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                        <button class="btn-add-row" onclick="addItemRow()">+ Add Item</button>
+                    </div>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- PREVIEW SECTION (Right) -->
+        <section class="preview-panel">
+            <div class="preview-header">
+                <h2>Live Preview</h2>
+                <button class="btn-download" onclick="downloadPDF()">Download PDF 📥</button>
+            </div>
+
+            <div class="promo-box">
+                <span>✍️</span>
+                <p>Need to sign this invoice? Use our free <a href="https://pdfsuite.eebii.com/public/editor.html" target="_blank">PDFSuite Sign Tool</a></p>
+            </div>
+
+            <!-- A4 Container -->
+            <div id="preview-pages-container">
+                <div id="invoice-preview" class="a4-page" style="margin-bottom: 20px;">
+                    <!-- Header -->
+                    <div class="pdf-header">
+                        <div class="pdf-company-info">
+                            <h1 id="p-companyName">Your Company</h1>
+                            <p id="p-companyAddress">Address Line 1, City</p>
+                            <p>GSTIN: <span id="p-companyGst">22AAAAA0000A1Z5</span></p>
+                            <p>Email: <span id="p-companyEmail">email@example.com</span></p>
+                            <p>Phone: <span id="p-companyPhone">9876543210</span></p>
+                        </div>
+                        <div class="pdf-invoice-meta">
+                            <h2 id="p-invoiceTitle">TAX INVOICE</h2>
+                            <table>
+                                <tr>
+                                    <td>Invoice #:</td>
+                                    <td id="p-invoiceNumber">INV-001</td>
+                                </tr>
+                                <tr>
+                                    <td>Date:</td>
+                                    <td id="p-invoiceDate">2023-10-27</td>
+                                </tr>
+                                <tr id="p-dueDateRow" style="display:none;">
+                                    <td>Due Date:</td>
+                                    <td id="p-dueDate">2023-11-27</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Bill To -->
+                    <div class="pdf-bill-to" id="p-billToBlock">
+                        <h3>Bill To:</h3>
+                        <p id="p-clientName">Client Name</p>
+                        <p id="p-clientAddress">Client Address</p>
+                        <p>Phone: <span id="p-clientPhone">9876543210</span></p>
+                        <p id="p-clientGst-line" style="display:none;">GSTIN: <span id="p-clientGst"></span></p>
+                        <p>Place of Supply: <span id="p-clientState">-</span></p>
+                    </div>
+
+                    <!-- Items Table -->
+                    <table class="pdf-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%">Item / Desc</th>
+                                <th style="width: 12%">HSN/SAC</th>
+                                <th class="text-right" style="width: 8%">Qty</th>
+                                <th class="text-right" style="width: 13%">Rate</th>
+                                <th class="text-right" style="width: 9%">Disc.</th>
+                                <th class="text-right" style="width: 13%">Taxable</th>
+                                <th class="text-right gst-column" style="width: 9%">GST</th>
+                                <th class="text-right" style="width: 11%">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="p-items-body">
+                            <!-- Preview Rows -->
+                        </tbody>
+                    </table>
+
+                    <!-- Totals -->
+                    <div class="pdf-totals">
+                        <div class="amount-in-words">
+                            <p><strong>Amount in Words:</strong></p>
+                            <p id="p-amountInWords">Zero Rupees Only</p>
+                            <br>
+                            <p class="terms"><strong>Terms & Conditions:</strong><br>1. Goods once sold will not be
+                                taken
+                                back.<br>2. Interest @18% pa will be charged if payment is not made within the due date.
+                            </p>
+                        </div>
+                        <div class="totals-breakdown">
+                            <div class="bg-gray">
+                                <div class="row">
+                                    <span>Subtotal (Taxable):</span>
+                                    <span id="p-subtotal">₹0.00</span>
+                                </div>
+                                <div class="row">
+                                    <span>Total Discount:</span>
+                                    <span id="p-discountTotal">₹0.00</span>
+                                </div>
+                                <div id="p-tax-breakdown-container">
+                                    <div class="row" id="p-cgst-row" style="display:none;">
+                                        <span>CGST:</span>
+                                        <span id="p-cgst">₹0.00</span>
+                                    </div>
+                                    <div class="row" id="p-sgst-row" style="display:none;">
+                                        <span>SGST:</span>
+                                        <span id="p-sgst">₹0.00</span>
+                                    </div>
+                                    <div class="row" id="p-igst-row" style="display:none;">
+                                        <span>IGST:</span>
+                                        <span id="p-igst">₹0.00</span>
+                                    </div>
+                                </div>
+                                <div class="row total-row">
+                                    <span>Grand Total:</span>
+                                    <span id="p-grandTotal">₹0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Details Block -->
+                    <div class="pdf-bank-details" id="p-bankDetailsBlock" style="display:none;">
+                        <div class="pdf-bank-header">
+                            Company's Bank Details
+                        </div>
+                        <div class="pdf-bank-grid">
+                            <span class="pdf-bank-label">Bank Name:</span>
+                            <span class="pdf-bank-value" id="p-bankName">-</span>
+
+                            <span class="pdf-bank-label">A/c No.:</span>
+                            <span class="pdf-bank-value" id="p-bankAccount" style="letter-spacing: 0.5px;">-</span>
+
+                            <span class="pdf-bank-label">Branch & IFSC Code:</span>
+                            <span class="pdf-bank-value" id="p-bankIfsc">-</span>
+
+                            <span class="pdf-bank-label" id="p-bankHolderLabel" style="display:none;">A/c Holder:</span>
+                            <span class="pdf-bank-value" id="p-bankAccountHolder" style="display:none;">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Signature -->
+                    <div class="pdf-footer">
+                        <div class="signature-box">
+                            <p>For <span id="p-companyName-sig">Your Company</span></p>
+                            <div class="sig-space"></div>
+                            <p>Authorized Signatory</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar Ad (Right) -->
+        <aside class="ad-sidebar">
+            <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-7048088905906211"
+                data-ad-slot="2265964708" data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+    </main>
+
+    <!-- Ad Sidebar Placeholder (Optional) -->
+    <!-- <div class="ad-sidebar">Ad</div> -->
+
+    <!-- Ad-Safe Instructional Content for SEO -->
+    <section class="ad-safe-content">
+        <h2>About GST Invoice Generator</h2>
+        <p>
+            <a href="https://eebii.com" style="color:#3b82f6; text-decoration:none;" target="_blank">Eebii</a> <a
+                href="https://invoice.eebii.com/" style="color:#3b82f6; text-decoration:none;">Free GST Invoice
+                Generator</a> is a powerful online tool that helps you create
+            GST-compliant invoices instantly from your browser. It is designed specifically
+            for Indian freelancers, small businesses, consultants, and professionals who need
+            an easy and reliable way to generate tax invoices without the need for software
+            installation or login. Our tool automatically calculates CGST, SGST, and IGST
+            based on the selected states and invoice details.
+        </p>
+
+        <h3>How It Works</h3>
+        <ul>
+            <li>Enter your business and client details</li>
+            <li>Add items, quantity, rate, discount, and GST percentage for each item</li>
+            <li>Preview your invoice live as you type</li>
+            <li>Download the professional A4 invoice as a PDF</li>
+        </ul>
+        <p>
+            The tool ensures your invoice follows Indian GST rules by calculating taxes
+            automatically. You can generate multiple invoices as needed without any signup
+            or subscription.
+        </p>
+
+        <h3>Benefits of Using This Tool</h3>
+        <ul>
+            <li>No login required — use instantly online</li>
+            <li>GST-ready invoice with automatic CGST, SGST, and IGST calculation</li>
+            <li>Professional PDF download suitable for print and email</li>
+            <li>Works from any device including mobile, tablet, and desktop</li>
+            <li>Fast and easy invoicing for freelancers and small businesses</li>
+        </ul>
+
+        <h3>What Is a GST Invoice?</h3>
+        <p>
+            A GST invoice is a sales invoice that contains required details like supplier
+            name, GSTIN, invoice number, invoice date, taxable value, tax breakdown and
+            amount payable. It is essential for GST-registered businesses in India to issue
+            a GST invoice when supplying goods or services to their customers.
+        </p>
+
+        <h3>Who Can Use This Tool?</h3>
+        <p>
+            This free online generator can be used by self-employed professionals, startups,
+            consultants, service providers, retailers, and any GST-registered business that
+            needs to create accurate invoices swiftly without complicated billing software.
+        </p>
+
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Is this tool really free?</strong> Yes, you can use all features without any cost and no signup is
+            required.</p>
+        <p><strong>Can I download invoices as PDF?</strong> Yes, after filling in the invoice details you can download
+            the invoice as a professional A4 PDF.</p>
+        <p><strong>Does it calculate GST automatically?</strong> Yes, the tool calculates CGST, SGST or IGST based on
+            your state selection and item details.</p>
+        <p><strong>Can I use this on mobile?</strong> Yes, the tool works on any modern mobile or desktop browser.</p>
+    </section>
+
+
+
+    <footer>
+        <p>&copy; 2026 <a href="https://eebii.com" class="brand-glass" target="_blank"
+                rel="noopener noreferrer">Eebii</a> Invoice Generator. Free for everyone.</p>
+        <p style="margin: 0.5rem 0; color: #6b7280; font-size: 0.9rem;">
+            Support: <a href="mailto:support@eebii.com"
+                style="color: #3b82f6; text-decoration: none;">support@eebii.com</a> |
+            Business: <a href="mailto:contact@eebii.com"
+                style="color: #3b82f6; text-decoration: none;">contact@eebii.com</a>
+        </p>
+        <div class="footer-nav">
+            <a href="about.html" class="footer-link">About</a>
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="terms.html" class="footer-link">Terms of Service</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeFeedbackModal()">&times;</span>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h2 style="margin:0 0 0.5rem 0; color:#0f172a; font-size:1.75rem;">Give Feedback</h2>
+                <p style="margin:0; color:#64748b; font-size:0.95rem;">Help us improve Eebii by sharing your thoughts.
+                </p>
+            </div>
+            <form id="feedbackForm">
+                <div style="margin-bottom: 1rem;">
+                    <label
+                        style="display:block; font-size:0.9rem; font-weight:600; color:#475569; margin-bottom:0.5rem; text-align: left;">Name
+                        (Optional)</label>
+                    <input type="text" name="Name" placeholder="Your name"
+                        style="width:100%; box-sizing:border-box; padding:0.75rem; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit; font-size:1rem; outline:none; transition: border-color 0.2s;"
+                        onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#cbd5e1'">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label
+                        style="display:block; font-size:0.9rem; font-weight:600; color:#475569; margin-bottom:0.5rem; text-align: left;">Email
+                        (Optional)</label>
+                    <input type="email" name="Email" placeholder="your@email.com"
+                        style="width:100%; box-sizing:border-box; padding:0.75rem; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit; font-size:1rem; outline:none; transition: border-color 0.2s;"
+                        onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#cbd5e1'">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display:block; font-size:0.9rem; font-weight:600; color:#475569; margin-bottom:0.5rem; text-align: left;">Feedback
+                        *</label>
+                    <textarea name="Message" rows="4" placeholder="What can we do better?" required
+                        style="width:100%; box-sizing:border-box; padding:0.75rem; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit; font-size:1rem; outline:none; resize:vertical; transition: border-color 0.2s;"
+                        onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#cbd5e1'"></textarea>
+                </div>
+                <input type="hidden" name="Type" value="Feedback Form">
+                <button type="submit"
+                    style="width:100%; background:#0f172a; color:white; border:none; padding:1rem; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(15, 23, 42, 0.15)'"
+                    onmouseout="this.style.transform='none'; this.style.boxShadow='none'">Send Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success popup (shared style) -->
+    <div id="feedbackPopup" class="popup">Feedback sent successfully ✅</div>
+
+    <script>
+        function openFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'flex';
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'none';
+        }
+
+        // Close when clicking outside modal
+        document.getElementById('feedbackModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeFeedbackModal();
+            }
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch("https://formspree.io/f/xwvnlraq", {
+                    method: "POST",
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    closeFeedbackModal();
+                    const popup = document.getElementById('feedbackPopup');
+                    popup.style.display = 'block';
+                    setTimeout(() => popup.style.display = 'none', 3000);
+                    this.reset();
+                } else {
+                    alert("There was a problem sending your feedback.");
+                }
+            } catch (error) {
+                alert("There was a problem sending your feedback. Please try again.");
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+    </script>
+
+    <!-- Updates Modal -->
+    <div id="updatesModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content" style="max-width: 620px; text-align: left; padding: 2rem;">
+            <span class="modal-close" onclick="closeUpdatesModal()">&times;</span>
+            <div style="margin-bottom: 1.25rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.75rem;">
+                <div style="display:inline-block; background:#dbeafe; color:#1e40af; font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:12px; text-transform:uppercase; margin-bottom:0.4rem;">Free Version Features</div>
+                <h2 style="margin:0; color:#0f172a; font-size:1.6rem;">What's New in Eebii Invoice</h2>
+                <p style="margin:0.25rem 0 0 0; color:#64748b; font-size:0.9rem;">Overview of all latest features available 100% free with no login required.</p>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 1.1rem; max-height: 55vh; overflow-y: auto; padding-right: 0.5rem;">
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #eff6ff; color: #2563eb; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">📋</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">HSN/SAC Code Support</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Add HSN or SAC codes per line item for GST compliance. Rendered cleanly on invoice table and PDF.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #f0fdf4; color: #16a34a; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">📊</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">Automatic CGST & SGST Rate Breakdown</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Rate-wise tax slab breakdown (CGST 9%, SGST 9%, CGST 2.5%, SGST 2.5%) for intra-state sales, and IGST for inter-state sales.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #fefce8; color: #ca8a04; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">🏦</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">Custom Bank Details (Optional)</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Enable "Include Bank Details" checkbox to render Bank Name, Account Number, Branch & IFSC Code on the final payment page.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #fdf2f8; color: #db2777; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">📅</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">Smart Due Date Controls</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Leave Due Date unselected to hide it from header, or pick a date to format as DD/MM/YYYY.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #faf5ff; color: #9333ea; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">📄</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">Smart Multi-Page A4 PDF Engine</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Prevents text clipping for long descriptions. Automatically formats multi-page A4 PDFs with totals on final page.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="background: #ecfeff; color: #0891b2; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">⚡</div>
+                    <div>
+                        <h4 style="margin:0 0 0.15rem 0; color:#1e293b; font-size:0.95rem;">100% Free & No Login Required</h4>
+                        <p style="margin:0; color:#64748b; font-size:0.85rem; line-height:1.4;">Generate and download unlimited professional GST invoices without signup or subscriptions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.25rem; text-align: center;">
+                <button onclick="closeUpdatesModal()" style="background:#0f172a; color:white; border:none; padding:0.7rem 1.75rem; border-radius:8px; font-weight:600; cursor:pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Modals & Banners -->
+    <script>
+        function openUpdatesModal() {
+            document.getElementById('updatesModal').style.display = 'flex';
+        }
+
+        function closeUpdatesModal() {
+            document.getElementById('updatesModal').style.display = 'none';
+        }
+
+        function closeUpdatesBanner() {
+            document.getElementById('updates-banner').style.display = 'none';
+            localStorage.setItem('updates_banner_dismissed', 'true');
+        }
+
+        // Close updates modal when clicking outside
+        document.getElementById('updatesModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeUpdatesModal();
+            }
+        });
+
+        // Check if updates banner was dismissed
+        if (localStorage.getItem('updates_banner_dismissed') === 'true') {
+            const b = document.getElementById('updates-banner');
+            if (b) b.style.display = 'none';
+        }
+    </script>
+
+    <!-- AdBlock Detection -->
+    <div id="adblock-overlay" class="adblock-overlay"></div>
+    <div id="adblock-notice" class="adblock-notice">
+        <h2>AdBlock Detected 🚫</h2>
+        <p>We see you're using an ad blocker. Please consider disabling it to support our free tool. Ads help us keep Eebii free for everyone.</p>
+        <button class="btn-continue" onclick="closeAdBlockNotice()">I've disabled it / Continue anyway</button>
+    </div>
+
+    <script>
+        function closeAdBlockNotice() {
+            document.getElementById('adblock-notice').style.display = 'none';
+            document.getElementById('adblock-overlay').style.display = 'none';
+            localStorage.setItem('adblock_dismissed', 'true');
+        }
+    </script>
+</body>
+
+
+
+</html>
