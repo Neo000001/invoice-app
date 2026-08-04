@@ -312,7 +312,40 @@ input, textarea, select {
     .input-group textarea {
         padding: 0.8rem;
         /* Larger touch area */
-        font-size: 16px;
+        font-size: 16px !important; /* Prevent zoom on iOS Safari */
+    }
+
+    .btn-download {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+    }
+
+    .site-header {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+
+    .site-header > div {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .updates-banner {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    .modal-content {
+        width: 94% !important;
+        max-width: 94% !important;
+        padding: 1.25rem !important;
+        margin: auto !important;
+        border-radius: 12px !important;
     }
 }
 

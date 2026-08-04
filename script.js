@@ -552,21 +552,27 @@ function managePreviewScale() {
     });
 }
 
-// Download PDF
+// Download PDF with full Mobile & iOS Safari support
 window.downloadPDF = async function () {
     const pages = document.querySelectorAll('.a4-page');
-    const invoiceNum = document.getElementById('invoiceNumber').value || 'Invoice';
+    const invoiceNum = document.getElementById('invoiceNumber').value.trim() || 'Invoice';
 
     if (typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
         alert("PDF libraries are still loading. Please try again in a moment.");
         return;
     }
 
-    const simpleBtnInitialText = document.querySelector('.btn-download').innerText;
-    document.querySelector('.btn-download').innerText = 'Generating...';
+    const downloadBtn = document.querySelector('.btn-download');
+    const originalBtnText = downloadBtn ? downloadBtn.innerText : 'Download PDF';
+    if (downloadBtn) downloadBtn.innerText = 'Generating PDF...';
 
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4',
+        compress: true
+    });
 
     // Store original styles to restore later
     const originalStyles = [];
@@ -579,13 +585,17 @@ window.downloadPDF = async function () {
             boxShadow: page.style.boxShadow
         });
 
-        // Reset for clean capture
+        // Reset transform to 100% full width for clean html2canvas capture
         page.style.transform = 'none';
         page.style.transformOrigin = 'unset';
         page.style.marginLeft = '0';
-        page.style.marginBottom = '20px'; // Natural gap
-        page.style.boxShadow = 'none'; // Prevent shadow artifacts in PDF
+        page.style.marginBottom = '0';
+        page.style.boxShadow = 'none';
     });
+
+    // Save current scroll position
+    const currentScrollY = window.scrollY;
+    window.scrollTo(0, 0);
 
     try {
         for (let i = 0; i < pages.length; i++) {
@@ -596,31 +606,57 @@ window.downloadPDF = async function () {
                 scale: 2,
                 useCORS: true,
                 logging: false,
+                width: 794,
+                windowWidth: 1024,
                 scrollX: 0,
-                scrollY: -window.scrollY,
-                windowWidth: document.documentElement.offsetWidth,
-                windowHeight: document.documentElement.offsetHeight
+                scrollY: 0
             });
 
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
             pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
         }
-        pdf.save(`${invoiceNum}.pdf`);
+
+        const fileName = `${invoiceNum}.pdf`;
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            // Blob URL delivery for mobile devices
+            const pdfBlob = pdf.output('blob');
+            const blobUrl = URL.createObjectURL(pdfBlob);
+
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = fileName;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                if (document.body.contains(a)) document.body.removeChild(a);
+                // Open in new tab if mobile browser blocks direct file save
+                window.open(blobUrl, '_blank');
+            }, 500);
+        } else {
+            pdf.save(fileName);
+        }
     } catch (err) {
         console.error("PDF Generation Error:", err);
         alert("An error occurred while generating the PDF. Please try again.");
     } finally {
-        // Restore original styles
+        // Restore scroll and page styles
+        window.scrollTo(0, currentScrollY);
         pages.forEach((page, i) => {
-            page.style.transform = originalStyles[i].transform;
-            page.style.transformOrigin = originalStyles[i].transformOrigin;
-            page.style.marginLeft = originalStyles[i].marginLeft;
-            page.style.marginBottom = originalStyles[i].marginBottom;
-            page.style.boxShadow = originalStyles[i].boxShadow;
+            if (originalStyles[i]) {
+                page.style.transform = originalStyles[i].transform;
+                page.style.transformOrigin = originalStyles[i].transformOrigin;
+                page.style.marginLeft = originalStyles[i].marginLeft;
+                page.style.marginBottom = originalStyles[i].marginBottom;
+                page.style.boxShadow = originalStyles[i].boxShadow;
+            }
         });
-        document.querySelector('.btn-download').innerText = simpleBtnInitialText;
+        if (downloadBtn) downloadBtn.innerText = originalBtnText;
     }
 };
 
